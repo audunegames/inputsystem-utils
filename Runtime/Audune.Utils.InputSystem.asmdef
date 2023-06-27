@@ -1,0 +1,14 @@
+{
+    "name": "Audune.Utils.InputSystem",
+    "rootNamespace": "Audune.Utils.InputSystem",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

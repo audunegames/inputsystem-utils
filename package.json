@@ -3,7 +3,7 @@
   "displayName": "Audune Input System Utilities",
   "version": "0.1.0",
   "unity": "2022.3",
-  "description": "Utility scripts for Unity's Input System package, made for Unity 2022.3 LTS or higher.",
+  "description": "Utility scripts for Unity's Input System package (1.5.0 or higher).",
   "licensesUrl": "https://www.gnu.org/licenses/gpl-3.0.html",
   "license": "GPL-3.0-or-later",
   "author": {

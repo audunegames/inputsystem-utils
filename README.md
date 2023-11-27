@@ -11,7 +11,7 @@ Audune Input System Utilities can be best installed as a git package in the Unit
 * Enter the following URL in the URL field and click **Add**:
 
 ```
-https://github.com/audunegames/utils-inputsystem.git
+https://github.com/audunegames/unity-inputsystem-utils.git
 ```
 
 ## Contents

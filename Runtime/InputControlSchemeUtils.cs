@@ -9,7 +9,7 @@ namespace Audune.Utils.InputSystem
   // Class that defines utility methods for control schemes and controls
   public static class InputControlSchemeUtils
   {
-    #region Getting avaiable control schemes
+    #region Getting available control schemes
     // Return all control schemes of an input action asset that are available based on the specified devices
     public static IEnumerable<ControlSchemeReference> GetAvailableControlSchemes<TDevices>(this InputActionAsset actionAsset, TDevices devices, bool includeMostSpecificOnly = false) where TDevices : IReadOnlyList<InputDevice>
     {
@@ -27,7 +27,7 @@ namespace Audune.Utils.InputSystem
       {
         // Create a dictionary of most specific control schemes per set of devices
         var mostSpecificControlSchemes = new List<(ControlSchemeReference scheme, float score)>();
-        foreach (var tuple in availableControlSchemes)
+        foreach (var tuple in availableControlSchemes.OrderBy(t => t.score))
         {
           mostSpecificControlSchemes.RemoveAll(t => tuple.scheme.devices.All(device => t.scheme.devices.Contains(device)) && t.score < tuple.score);
           mostSpecificControlSchemes.Add(tuple);

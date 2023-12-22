@@ -43,20 +43,46 @@ namespace Audune.Utils.InputSystem
 
 
     #region Rebinding operations
-    // Apply a binding override on a binding that matches the specified predicate in the binding reference group
-    public void ApplyBindingOverride(Func<BindingReference, bool> bindingPredicate, InputBinding bindingOverride)
+    // Apply a binding override path on a binding that matches the specified predicate in the binding reference group
+    public void ApplyBindingOverride(Func<BindingReference, bool> bindingPredicate, string path)
     {
       var binding = bindings.FirstOrDefault(bindingPredicate);
       if (binding == null)
         throw new ArgumentException("Could not find a binding that matches the predicate", nameof(binding));
 
-      binding.ApplyBindingOverride(bindingOverride);
+      binding.ApplyBindingOverride(path);
+    }
+
+    // Apply a binding override on a binding that matches the specified predicate in the binding reference group
+    public void ApplyBindingOverride(Func<BindingReference, bool> bindingPredicate, InputBinding bindingOverride)
+    {
+      ApplyBindingOverride(bindingPredicate, bindingOverride.overridePath);
+    }
+
+    // Apply a binding override path on a binding with the specified binding index in the binding reference group
+    public void ApplyBindingOverride(int bindingIndex, string path)
+    {
+      ApplyBindingOverride(binding => binding.bindingIndex == bindingIndex, path);
     }
 
     // Apply a binding override on a binding with the specified binding index in the binding reference group
     public void ApplyBindingOverride(int bindingIndex, InputBinding bindingOverride)
     {
-      ApplyBindingOverride(binding => binding.bindingIndex == bindingIndex, bindingOverride);
+      ApplyBindingOverride(bindingIndex, bindingOverride.overridePath);
+    }
+
+    // Apply a binding override path on all bindings in the binding reference group
+    public void ApplyBindingOverrideToAll(string path)
+    {
+      foreach (var binding in bindings)
+        binding.ApplyBindingOverride(path);
+    }
+
+    // Apply a binding override on all bindings in the binding reference group
+    public void ApplyBindingOverrideToFirst(InputBinding bindingOverride)
+    {
+      foreach (var binding in bindings)
+        binding.ApplyBindingOverride(bindingOverride);
     }
 
     // Remove a binding override on a binding that matches the specified predicate in the binding reference group
@@ -75,6 +101,19 @@ namespace Audune.Utils.InputSystem
       RemoveBindingOverride(binding => binding.bindingIndex == bindingIndex);
     }
 
+    // Remove a binding override on all bindings in the binding reference group
+    public void RemoveBindingOverrideFromAll()
+    {
+      foreach (var binding in bindings)
+        binding.RemoveBindingOverride();
+    }
+
+    // Remove a binding override on the first binding in the binding reference group
+    public void RemoveBindingOverrideFromFirst()
+    {
+      bindings[0].RemoveBindingOverride();
+    }
+
     // Perform interactive rebinding on a binding that matches the specified predicate in the binding reference group
     public InputActionRebindingExtensions.RebindingOperation PerformInteractiveRebinding(Func<BindingReference, bool> bindingPredicate)
     {
@@ -89,6 +128,12 @@ namespace Audune.Utils.InputSystem
     public InputActionRebindingExtensions.RebindingOperation PerformInteractiveRebinding(int bindingIndex)
     {
       return PerformInteractiveRebinding(binding => binding.bindingIndex == bindingIndex);
+    }
+
+    // Perform interactive rebinding on the first binding in the binding reference group
+    public InputActionRebindingExtensions.RebindingOperation PerformInteractiveRebindingOnFirst()
+    {
+      return bindings[0].PerformInteractiveRebinding();
     }
     #endregion
 

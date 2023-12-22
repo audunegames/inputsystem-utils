@@ -42,6 +42,12 @@ namespace Audune.Utils.InputSystem
 
 
     #region Rebinding operations
+    // Apply a binding override path on the binding reference
+    public void ApplyBindingOverride(string path)
+    {
+      action.ApplyBindingOverride(bindingIndex, path);
+    }
+
     // Apply a binding override on the binding reference
     public void ApplyBindingOverride(InputBinding bindingOverride)
     {

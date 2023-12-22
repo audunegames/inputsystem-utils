@@ -11,9 +11,12 @@ namespace Audune.Utils.InputSystem
     // Return the bindings of an action that match the specified control scheme
     public static IEnumerable<BindingReference> GetBindingReferences(this InputAction action, InputControlScheme controlScheme)
     {
-      return action.bindings
-        .Where(binding => InputBinding.MaskByGroup(controlScheme.bindingGroup).Matches(binding))
-        .Select((binding, index) => new BindingReference(action, controlScheme, binding, index));
+      for (var i = 0; i < action.bindings.Count; i++)
+      {
+        var binding = action.bindings[i];
+        if (InputBinding.MaskByGroup(controlScheme.bindingGroup).Matches(binding))
+          yield return new BindingReference(action, controlScheme, binding, i);
+      }
     }
 
     // Return the combined binding references of an action that match the specified control scheme

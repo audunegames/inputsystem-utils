@@ -1,11 +1,11 @@
 {
   "name": "com.audune.utils.inputsystem",
   "displayName": "Input System Utilities",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "unity": "2022.3",
-  "description": "Unity Input System (>=1.5.0) utilities for Unity 2022 LTS or higher.",
-  "documentationUrl": "https://github.com/audunegames/unity-inputsystem-utils",
-  "changelogUrl": "https://github.com/audunegames/unity-inputsystem-utils/commits/v0.1.2",
+  "description": "Input System utilities for Unity 2022 LTS or higher.",
+  "documentationUrl": "https://github.com/audunegames/inputsystem-utils",
+  "changelogUrl": "https://github.com/audunegames/inputsystem-utils/commits/v0.1.3",
   "licensesUrl": "https://www.gnu.org/licenses/gpl-3.0.html",
   "license": "GPL-3.0-or-later",
   "author": {

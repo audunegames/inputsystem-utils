@@ -18,7 +18,7 @@ namespace Audune.Utils.InputSystem
 
 
     // Return the name of the binding reference group
-    public string Name {
+    public string name {
       get {
         var actionName = action.actionMap != null && !string.IsNullOrEmpty(action.actionMap.name) ? $"{action.actionMap.name}/{action.name}" : action.name;
         return !string.IsNullOrEmpty(partOfCompositeName) ? $"{actionName}/{partOfCompositeName}" : actionName;
@@ -38,7 +38,7 @@ namespace Audune.Utils.InputSystem
     // Return the string representation of the binding reference group
     public override string ToString()
     {
-      return $"{Name} bound to {string.Join(", ", bindings.Select(binding => binding.binding.ToDisplayString(InputBinding.DisplayStringOptions.DontOmitDevice)))}";
+      return $"{name} bound to {string.Join(", ", bindings.Select(binding => binding.binding.ToDisplayString(InputBinding.DisplayStringOptions.DontOmitDevice)))}";
     }
 
 

@@ -19,18 +19,19 @@ namespace Audune.Utils.InputSystem
       }
     }
 
-    // Return the combined binding references of an action that match the specified control scheme
-    public static IEnumerable<BindingReferenceGroup> GetCombinedBindingReferences(this InputAction action, InputControlScheme controlScheme)
+    // Return the grouped binding references of an action that match the specified control scheme
+    public static IEnumerable<BindingReferenceGroup> GetGroupedBindingReferences(this InputAction action, InputControlScheme controlScheme)
     {
       return GetBindingReferences(action, controlScheme)
         .GroupBy(binding => binding.binding.name)
         .Select(bindingGroup => new BindingReferenceGroup(action, controlScheme, bindingGroup, bindingGroup.Key));
     }
 
-    // Return the combined binding references of an action with the specified composite name that match the specified control scheme
-    public static BindingReferenceGroup GetGroupedBindingReferences(this InputAction action, InputControlScheme controlScheme, string partOfCompositeName)
+
+    // Return the grouped binding references of an action with the specified composite name that match the specified control scheme
+    public static BindingReferenceGroup GetGroupedPartOfCompositeBindingReferences(this InputAction action, InputControlScheme controlScheme, string partOfCompositeName)
     {
-      return GetCombinedBindingReferences(action, controlScheme)
+      return GetGroupedBindingReferences(action, controlScheme)
         .FirstOrDefault(bindings => bindings.partOfCompositeName == partOfCompositeName);
     }
     #endregion
@@ -42,10 +43,10 @@ namespace Audune.Utils.InputSystem
       return actions.SelectMany(action => GetBindingReferences(action, controlScheme));
     }
 
-    // Return the combined binding references of an enumerable of actions that match the specified control scheme
-    public static IEnumerable<BindingReferenceGroup> GetCombinedBindingReferences(this IEnumerable<InputAction> actions, InputControlScheme controlScheme)
+    // Return the grouped binding references of an enumerable of actions that match the specified control scheme
+    public static IEnumerable<BindingReferenceGroup> GetGroupedBindingReferences(this IEnumerable<InputAction> actions, InputControlScheme controlScheme)
     {
-      return actions.SelectMany(action => GetCombinedBindingReferences(action, controlScheme));
+      return actions.SelectMany(action => GetGroupedBindingReferences(action, controlScheme));
     }
     #endregion
 
@@ -53,7 +54,7 @@ namespace Audune.Utils.InputSystem
     // Return a binding group with updated bindings for the binding group
     public static BindingReferenceGroup WithUpdatedBindings(this BindingReferenceGroup bindings)
     {
-      return GetGroupedBindingReferences(bindings.action, bindings.controlScheme, bindings.partOfCompositeName);
+      return GetGroupedPartOfCompositeBindingReferences(bindings.action, bindings.controlScheme, bindings.partOfCompositeName);
     }
     #endregion
   }

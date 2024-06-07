@@ -17,7 +17,7 @@ namespace Audune.Utils.InputSystem
 
 
     // Return the name of the binding reference
-    public string Name {
+    public string name {
       get {
         var actionName = action.actionMap != null && !string.IsNullOrEmpty(action.actionMap.name) ? $"{action.actionMap.name}/{action.name}" : action.name;
         return !string.IsNullOrEmpty(binding.name) ? $"{actionName}/{binding.name}" : actionName;
@@ -37,7 +37,7 @@ namespace Audune.Utils.InputSystem
     // Return the string representation of the binding reference
     public override string ToString()
     {
-      return $"{Name} bound to {binding.ToDisplayString(InputBinding.DisplayStringOptions.DontOmitDevice)}";
+      return $"{name} bound to {binding.ToDisplayString(InputBinding.DisplayStringOptions.DontOmitDevice)}";
     }
 
 

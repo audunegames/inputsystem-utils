@@ -15,7 +15,7 @@ namespace Audune.Utils.InputSystem
       public string spriteAssetName = "";
 
       // Indicate if the sprite should be tinted
-      public bool tint = false;      
+      public bool tint = false;
     }
 
 
@@ -55,6 +55,7 @@ namespace Audune.Utils.InputSystem
 
       if (binding == null)
         return string.Empty;
+
       return new TextMeshProSprite(RewriteControlPath(binding.effectivePath), options.spriteAssetName, options.tint);
     }
 
@@ -65,6 +66,7 @@ namespace Audune.Utils.InputSystem
 
       if (bindings == null)
         return string.Empty;
+
       return string.Join(separator, bindings.Select(binding => ToTextMeshProSprite(binding, options)));
     }
 
@@ -75,6 +77,7 @@ namespace Audune.Utils.InputSystem
 
       if (bindings == null)
         return string.Empty;
+
       return ToTextMeshProSprite(bindings.ElementAtOrDefault(0), options);
     }
     #endregion
@@ -87,6 +90,7 @@ namespace Audune.Utils.InputSystem
 
       if (binding == null)
         return string.Empty;
+
       return ToTextMeshProSprite(binding.binding, options);
     }
 
@@ -97,6 +101,7 @@ namespace Audune.Utils.InputSystem
 
       if (bindings == null)
         return string.Empty;
+
       return string.Join(separator, bindings.Select(binding => ToTextMeshProSprite(binding, options)));
     }
 
@@ -107,7 +112,32 @@ namespace Audune.Utils.InputSystem
 
       if (bindings == null)
         return string.Empty;
+
       return ToTextMeshProSprite(bindings.ElementAtOrDefault(0), options);
+    }
+    #endregion
+
+    #region Converting a binding reference group to a TextMeshPro sprite
+    // Return a string containing TextMeshPro sprites for an enumerable of bindings
+    public static string ToTextMeshProSpriteSequence(this IEnumerable<BindingReferenceGroup> groups, SpriteDisplayOptions options = null, string separator = "")
+    {
+      options ??= new SpriteDisplayOptions();
+
+      if (groups == null)
+        return string.Empty;
+
+      return string.Join(separator, groups.Select(group => ToTextMeshProSpriteSequence(group, options, separator)));
+    }
+
+    // Return a string containing a TextMeshPro sprite for the first binding in an enumerable of bindings
+    public static string ToTextMeshProSpriteFirstOnly(this IEnumerable<BindingReferenceGroup> groups, SpriteDisplayOptions options = null, string separator = "")
+    {
+      options ??= new SpriteDisplayOptions();
+
+      if (groups == null)
+        return string.Empty;
+
+      return string.Join(separator, groups.Select(group => ToTextMeshProSpriteFirstOnly(group, options)));
     }
     #endregion
   }

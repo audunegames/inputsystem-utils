@@ -54,7 +54,7 @@ namespace Audune.Utils.InputSystem.Editor
       list.Add(new SearchTreeEntry(new GUIContent("None")) { level = 1, userData = default(TValue) });
 
       // Iterate over the items
-      foreach (var item in items.OrderBy(item => item.path))
+      foreach (var item in items.GroupBy(item => item.path).Select(group => group.First()))
       {
         var components = item.path.Split("/");
 
@@ -65,7 +65,7 @@ namespace Audune.Utils.InputSystem.Editor
           group += components[i];
           if (!groups.Contains(group))
           {
-            list.Add(new SearchTreeGroupEntry(new GUIContent(components[i]), i + 1));
+            list.Add(new SearchTreeGroupEntry(new GUIContent(components[i], i == 0 ? InputSystemEditorGUIUtils.LoadIcon("InputActionAsset") : null), i + 1));
             groups.Add(group);
           }
           group += "/";
@@ -95,8 +95,7 @@ namespace Audune.Utils.InputSystem.Editor
       var provider = CreateInstance<ActionMapSearchProvider>();
       provider.title = "Action Maps";
       provider.items = actionAssets
-        .SelectMany(asset => asset.actionMaps)
-        .Select(actionMap => new Item(actionMap, $"{actionMap.asset.name}/{actionMap.name}", InputSystemEditorGUIUtils.LoadIcon("Add Binding")))
+        .SelectMany(asset => asset.actionMaps.Select(actionMap => new Item(actionMap, $"{asset.name}/{actionMap.name}", InputSystemEditorGUIUtils.LoadIcon("InputControl"))))
         .ToList();
       provider.onSelectCallback = onSelectCallback;
       return provider;
@@ -112,8 +111,7 @@ namespace Audune.Utils.InputSystem.Editor
       var provider = CreateInstance<ControlSchemeSearchProvider>();
       provider.title = "Action Maps";
       provider.items = actionAssets
-        .SelectMany(asset => asset.controlSchemes.Select(controlScheme => (asset, controlScheme)))
-        .Select(t => new Item(t.controlScheme, $"{t.asset.name}/{t.controlScheme.name}", InputSystemEditorGUIUtils.LoadIconForControlScheme(t.controlScheme)))
+        .SelectMany(asset => asset.controlSchemes.Select(controlScheme => new Item(controlScheme, $"{asset.name}/{controlScheme.name}", InputSystemEditorGUIUtils.LoadIconForControlScheme(controlScheme))))
         .ToList();
       provider.onSelectCallback = onSelectCallback;
       return provider;

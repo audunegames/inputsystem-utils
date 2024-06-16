@@ -45,7 +45,7 @@ namespace Audune.Utils.InputSystem.Editor
         }
       }
 
-      return null;
+      return LoadIcon("InputControl");
     }
 
     // Load an icon for an input control scheme

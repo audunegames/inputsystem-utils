@@ -1,0 +1,19 @@
+{
+    "name": "Audune.Utils.InputSystem.Editor",
+    "rootNamespace": "Audune.Utils.InputSystem.Editor",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:8623fd439e0b77b468246755460b61e4"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

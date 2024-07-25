@@ -18,7 +18,6 @@ namespace Audune.Utils.InputSystem
       public bool tint = false;
     }
 
-
     #region Rewriting control paths of bindings
     // Rewrite a control path so it can be used as a sprite name by replacing angle brackets for layouts to square brackets
     // E.g. "<Gamepad>/buttonSouth" becomes "[Gamepad]/buttonSouth"
@@ -47,6 +46,30 @@ namespace Audune.Utils.InputSystem
     }
     #endregion
 
+    #region Converting a control to a TextMeshPro sprite
+    // Return a string containing a TextMeshPro sprite for a control path
+    public static string ToTextMeshProSprite(string path, SpriteDisplayOptions options = null)
+    {
+      options ??= new SpriteDisplayOptions();
+
+      if (string.IsNullOrEmpty(path))
+        return string.Empty;
+
+      return new TextMeshProSprite(RewriteControlPath(path), options.spriteAssetName, options.tint);
+    }
+
+    // Return a string containing a TextMeshPro sprite for a control
+    public static string ToTextMeshProSprite(this InputControl control, SpriteDisplayOptions options = null)
+    {
+      options ??= new SpriteDisplayOptions();
+
+      if (control == null)
+        return string.Empty;
+
+      return ToTextMeshProSprite(control.path, options);
+    }
+    #endregion
+
     #region Converting a binding to a TextMeshPro sprite
     // Return a string containing a TextMeshPro sprite for a binding
     public static string ToTextMeshProSprite(this InputBinding binding, SpriteDisplayOptions options = null)
@@ -56,7 +79,7 @@ namespace Audune.Utils.InputSystem
       if (binding == null)
         return string.Empty;
 
-      return new TextMeshProSprite(RewriteControlPath(binding.effectivePath), options.spriteAssetName, options.tint);
+      return ToTextMeshProSprite(binding.effectivePath, options);
     }
 
     // Return a string containing TextMeshPro sprites for an enumerable of bindings

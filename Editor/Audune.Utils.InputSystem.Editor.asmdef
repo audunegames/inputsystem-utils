@@ -3,6 +3,7 @@
     "rootNamespace": "Audune.Utils.InputSystem.Editor",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:8623fd439e0b77b468246755460b61e4"
     ],
     "includePlatforms": [

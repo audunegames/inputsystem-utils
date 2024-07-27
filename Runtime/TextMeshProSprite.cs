@@ -1,4 +1,8 @@
-﻿namespace Audune.Utils.InputSystem
+﻿using System.Linq;
+using TMPro;
+using UnityEngine;
+
+namespace Audune.Utils.InputSystem
 {
   // Class that defines a TextMeshPro sprite
   public sealed class TextMeshProSprite
@@ -11,6 +15,21 @@
 
     // Indicate if the sprite should be tinted
     public readonly bool tint;
+
+
+
+
+    // Return the TextMeshPro sprite
+    public TMP_SpriteCharacter sprite => spriteAsset.spriteCharacterTable
+      .FirstOrDefault(c => c.name == spriteName);
+
+    // Return the TextMashPro sprite asset to use
+    public TMP_SpriteAsset spriteAsset => !string.IsNullOrEmpty(spriteAssetName)
+      ? Resources.Load<TMP_SpriteAsset>(TMP_Settings.defaultSpriteAssetPath + spriteAssetName)
+      : TMP_Settings.defaultSpriteAsset;
+
+    // Return if the TextMeshPro sprite exists
+    public bool spriteExists => sprite != null;
 
 
     // Constructor

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine.InputSystem;
@@ -12,11 +13,15 @@ namespace Audune.Utils.InputSystem
     public class SpriteDisplayOptions
     {
       // The name of the sprite asset to use
-      public string spriteAssetName = "";
+      public string spriteAssetName = string.Empty;
 
       // Indicate if the sprite should be tinted
       public bool tint = false;
+
+      // Function to rewrite the control path
+      public Func<string, string> rewriteControlPath = RewriteControlPath;
     }
+
 
     #region Rewriting control paths of bindings
     // Rewrite a control path so it can be used as a sprite name by replacing angle brackets for layouts to square brackets
@@ -47,6 +52,12 @@ namespace Audune.Utils.InputSystem
     #endregion
 
     #region Converting a control to a TextMeshPro sprite
+    // Create a TextMeshPro sprite from a sprite display options object
+    private static TextMeshProSprite CreateSprite(string spriteName, SpriteDisplayOptions options)
+    {
+      return new TextMeshProSprite(options.rewriteControlPath(spriteName), options.spriteAssetName, options.tint);
+    }
+
     // Return a string containing a TextMeshPro sprite for a control path
     public static string ToTextMeshProSprite(string path, SpriteDisplayOptions options = null)
     {
@@ -55,7 +66,10 @@ namespace Audune.Utils.InputSystem
       if (string.IsNullOrEmpty(path))
         return string.Empty;
 
-      return new TextMeshProSprite(RewriteControlPath(path), options.spriteAssetName, options.tint);
+      if (!InputControlLayoutUtils.TryMatchLayoutForPath(path, (p, l) => CreateSprite(p, options), (p, s) => s.spriteExists, out var sprite))
+        return string.Empty;
+
+      return sprite;
     }
 
     // Return a string containing a TextMeshPro sprite for a control

@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updated some method names to make clear what they do.
 - Updated package information.
 
 ## [0.1.3] - 2024-02-22

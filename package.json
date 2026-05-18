@@ -1,7 +1,7 @@
 {
   "name": "com.audune.utils.inputsystem",
   "displayName": "Unity Input System Utilities",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "unity": "2022.3",
   "description": "Unity Input System utilities for Unity 2022 LTS or higher.",
   "documentationUrl": "https://github.com/audunegames/inputsystem-utils",
